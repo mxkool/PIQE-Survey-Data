@@ -1,0 +1,30 @@
+Function Select_CapturedData_ddData(pSheetName As String) As String
+    Dim sRangeAddress As String
+    sRangeAddress = ""
+    
+    Sheets(pSheetName).Select
+    
+    Range("c_SurveyInput_FirstCell").Select
+    If Selection.Value = "" Then
+        Select_CapturedData_ddData = ""
+        Exit Function
+    Else
+        Range("c_SurveyInput_FirstRow_LastCell").Select
+        If Selection.Value = "" Then
+            Select_CapturedData_ddData = ""
+            Exit Function
+        End If
+    End If
+            
+    Range("c_SurveyInput_SecondRowCell").Select
+    If Selection.Value = "" Then
+        Range("r_First_InputDataRow_ddd").Select
+        sRangeAddress = Selection.Address
+    Else
+        Range("r_First_InputDataRow_ddd").Select
+        Range(Selection, Selection.End(xlDown)).Select
+        sRangeAddress = Selection.Address
+    End If
+    
+    Select_CapturedData_ddData = sRangeAddress
+End Function
