@@ -1,0 +1,19 @@
+Function EmptyCells_on_ddData(pDataRange As String) As Integer
+    On Error GoTo ErrorHandler
+    
+    Dim iEmptyCells As Integer
+    Dim r As Range
+    
+    iEmptyCells = 0
+    Set r = Range(pDataRange).SpecialCells(xlCellTypeBlanks)
+    iEmptyCells = r.Count
+      
+ErrorHandler:
+    Select Case Err.Number
+        Case 1004
+            iEmptyCells = 0
+            Err.Clear
+    End Select
+    
+    EmptyCells_on_ddData = iEmptyCells
+End Function
