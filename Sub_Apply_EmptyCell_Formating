@@ -1,0 +1,21 @@
+Sub Apply_EmptyCell_Formating(pRange As String)
+    On Error GoTo ErrorHandler
+    
+    Range(pRange).Select
+        Selection.FormatConditions.Add Type:=xlExpression, Formula1:= _
+        "=LEN(TRIM(B4))=0"
+    Selection.FormatConditions(Selection.FormatConditions.Count).SetFirstPriority
+    With Selection.FormatConditions(1).Interior
+        .PatternColorIndex = xlAutomatic
+        .Color = 255
+        .TintAndShade = 0
+    End With
+    Selection.FormatConditions(1).StopIfTrue = False
+    
+    Exit Sub
+    
+ErrorHandler:
+    MsgBox "Error #" & Err.Number & " found on mod_Validate_Input"
+    Select Case Err.Number
+    End Select
+End Sub
